@@ -13,7 +13,7 @@ public class FacultyService {
     private long count = 0;
 
     public Faculty addFaculty(Faculty faculty) {
-        faculty.setId(count++);
+        faculty.setId(++count);
         facultyMap.put(faculty.getId(), faculty);
         return faculty;
     }

@@ -13,7 +13,7 @@ public class StudentService {
     private long count = 0;
 
     public Student addStudent(Student student) {
-        student.setId(count++);
+        student.setId(++count);
         studentMap.put(student.getId(), student);
         return student;
     }

@@ -2,6 +2,7 @@ package org.skypro.homeworks.hogwarts1.controller;
 
 import org.skypro.homeworks.hogwarts1.model.Faculty;
 import org.skypro.homeworks.hogwarts1.service.FacultyService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,7 +40,7 @@ public class FacultyController {
         Faculty foundFaculty = facultyService.editFaculty(id, faculty);
 
         if (foundFaculty == null) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
         return ResponseEntity.ok(faculty);
