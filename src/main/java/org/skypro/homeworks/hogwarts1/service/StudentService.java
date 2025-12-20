@@ -1,5 +1,6 @@
 package org.skypro.homeworks.hogwarts1.service;
 
+import org.skypro.homeworks.hogwarts1.dto.StudentCreateDto;
 import org.skypro.homeworks.hogwarts1.model.Student;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +13,8 @@ public class StudentService {
     private final Map<Long, Student> studentMap = new HashMap<>();
     private long count = 1;
 
-    public Student addStudent(Student student) {
-        student.setId(count++);
+    public Student addStudent(StudentCreateDto studentCreateDto) {
+        Student student = new Student(count++, studentCreateDto.name(), studentCreateDto.age());
         studentMap.put(student.getId(), student);
         return student;
     }

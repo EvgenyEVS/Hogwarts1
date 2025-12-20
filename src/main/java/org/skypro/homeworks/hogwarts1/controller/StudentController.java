@@ -1,5 +1,6 @@
 package org.skypro.homeworks.hogwarts1.controller;
 
+import org.skypro.homeworks.hogwarts1.dto.StudentCreateDto;
 import org.skypro.homeworks.hogwarts1.model.Student;
 import org.skypro.homeworks.hogwarts1.service.StudentService;
 import org.springframework.http.HttpStatus;
@@ -20,8 +21,8 @@ public class StudentController {
 
 
     @PostMapping
-    public Student createStudent(@RequestBody Student student) {
-        return studentService.addStudent(student);
+    public Student createStudent(@RequestBody StudentCreateDto studentCreateDto) {
+        return studentService.addStudent(studentCreateDto);
     }
 
 
