@@ -1,5 +1,6 @@
 package org.skypro.homeworks.hogwarts1.controller;
 
+import org.skypro.homeworks.hogwarts1.dto.FacultyCreateDto;
 import org.skypro.homeworks.hogwarts1.model.Faculty;
 import org.skypro.homeworks.hogwarts1.service.FacultyService;
 import org.springframework.http.HttpStatus;
@@ -19,8 +20,8 @@ public class FacultyController {
 
 
     @PostMapping
-    public Faculty createFaculty(@RequestBody Faculty faculty) {
-        return facultyService.addFaculty(faculty);
+    public Faculty createFaculty(@RequestBody FacultyCreateDto facultyCreateDto) {
+        return facultyService.addFaculty(facultyCreateDto);
     }
 
 

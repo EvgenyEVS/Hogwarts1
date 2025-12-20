@@ -1,5 +1,6 @@
 package org.skypro.homeworks.hogwarts1.service;
 
+import org.skypro.homeworks.hogwarts1.dto.FacultyCreateDto;
 import org.skypro.homeworks.hogwarts1.model.Faculty;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +11,11 @@ import java.util.Map;
 @Service
 public class FacultyService {
     private final Map<Long, Faculty> facultyMap = new HashMap<>();
-    private long count = 0;
+    private long count = 1;
 
-    public Faculty addFaculty(Faculty faculty) {
-        faculty.setId(++count);
+    public Faculty addFaculty(FacultyCreateDto facultyCreateDto) {
+        Faculty faculty = new Faculty(count++, facultyCreateDto.name(), facultyCreateDto.color());
+
         facultyMap.put(faculty.getId(), faculty);
         return faculty;
     }
@@ -38,7 +40,7 @@ public class FacultyService {
         facultyMap.remove(id);
     }
 
-    public Collection<Faculty> getAllFaculty () {
+    public Collection<Faculty> getAllFaculty() {
         return facultyMap.values();
     }
 
