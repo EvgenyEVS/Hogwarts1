@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -49,5 +50,12 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
+    public List<Student> findByNameContainingIgnoreCase(String name) {
+        return studentRepository.findByNameContainingIgnoreCase(name);
+    }
+
+    public List<Student> findByAge(int age) {
+        return studentRepository.findByAge(age);
+    }
 
 }

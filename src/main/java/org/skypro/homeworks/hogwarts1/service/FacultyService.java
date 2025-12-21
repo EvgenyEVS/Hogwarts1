@@ -2,12 +2,14 @@ package org.skypro.homeworks.hogwarts1.service;
 
 import org.skypro.homeworks.hogwarts1.dto.FacultyCreateDto;
 import org.skypro.homeworks.hogwarts1.model.Faculty;
+import org.skypro.homeworks.hogwarts1.model.Student;
 import org.skypro.homeworks.hogwarts1.repository.FacultyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.hibernate.criterion.Projections.id;
@@ -49,5 +51,15 @@ public class FacultyService {
     public Collection<Faculty> getAllFaculty() {
         return facultyRepository.findAll();
     }
+
+    public List<Faculty> findByNameContainingIgnoreCase(String name) {
+        return facultyRepository.findByNameContainingIgnoreCase(name);
+    }
+
+
+    public List<Faculty> findByNColor(String color) {
+        return facultyRepository.findByColor(color);
+    }
+
 
 }

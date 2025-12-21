@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("/student")
@@ -57,5 +58,16 @@ public class StudentController {
     public Collection<Student> getAllStudent() {
         return studentService.getAllStudent();
     }
+
+    @GetMapping("/search/age/{age}")
+    public List<Student> findByAge(@PathVariable int age) {
+        return studentService.findByAge(age);
+    }
+
+    @GetMapping("/search/name/{name}")
+    public List<Student> findByName(@PathVariable String name) {
+        return studentService.findByNameContainingIgnoreCase(name);
+    }
+
 
 }
