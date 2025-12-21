@@ -39,13 +39,12 @@ public class StudentController {
 
     @PutMapping("{id}")
     public ResponseEntity<Student> editStudent(@PathVariable long id, @RequestBody Student student) {
-        Student foundStudent = studentService.editStudent(id, student);
+        Student editStudent = studentService.editStudent(id, student);
 
-        if (foundStudent == null) {
+        if (editStudent == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-
-        return ResponseEntity.ok(student);
+        return ResponseEntity.ok(editStudent);
     }
 
     @DeleteMapping("{id}")
