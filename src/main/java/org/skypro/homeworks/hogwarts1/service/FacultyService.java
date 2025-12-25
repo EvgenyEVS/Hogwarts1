@@ -48,7 +48,7 @@ public class FacultyService {
         facultyRepository.deleteById(id);
     }
 
-    public Collection<Faculty> getAllFaculty() {
+    public List<Faculty> getAllFaculty() {
         return facultyRepository.findAll();
     }
 
@@ -56,9 +56,8 @@ public class FacultyService {
         return facultyRepository.findByNameContainingIgnoreCase(name);
     }
 
-
-    public List<Faculty> findByNColor(String color) {
-        return facultyRepository.findByColor(color);
+    public List<Faculty> findByColor(String color) {
+        return facultyRepository.findByColorContainsIgnoreCase(color);
     }
 
 

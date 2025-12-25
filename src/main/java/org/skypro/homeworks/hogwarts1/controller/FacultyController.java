@@ -53,20 +53,28 @@ public class FacultyController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping
-    public Collection<Faculty> getAllFaculty() {
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Faculty>> findFacultyByNameOrColorOrAll
+            (@RequestParam(required = false) String name,
+             @RequestParam(required = false) String color) {
+        if (name != null && !name.isBlank()) {
+            return ResponseEntity.ok(facultyService.findByNameContainingIgnoreCase(name));
+        }
+        if (color != null && !color.isBlank()) {
+            return ResponseEntity.ok(facultyService.findByColor(color));
+        }
+        return ResponseEntity.ok(facultyService.getAllFaculty());
+    }
+
+
+/*    @GetMapping("/search")
+    public List<Faculty> findFacultyByNameOrColor
+            (@RequestParam(required = false)String name,
+            @RequestParam(required = false)String color) {
+        if (name != null && !name.isBlank()) {return facultyService.findByNameContainingIgnoreCase(name);}
+        if (color != null && !color.isBlank()) {return facultyService.findByColor(color);}
         return facultyService.getAllFaculty();
-    }
-
-    @GetMapping("/search/name/{name}")
-    public List<Faculty> findByNameContainingIgnoreCase(@PathVariable String name) {
-        return facultyService.findByNameContainingIgnoreCase(name);
-    }
-
-    @GetMapping("/search/color/{color}")
-    public List<Faculty> findByColor(@PathVariable String color) {
-        return facultyService.findByNColor(color);
-    }
-
+    }*/
 
 }
