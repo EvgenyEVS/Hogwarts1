@@ -1,5 +1,6 @@
 package org.skypro.homeworks.hogwarts1.controller;
 
+import org.skypro.homeworks.hogwarts1.dto.StudentCreateDto;
 import org.skypro.homeworks.hogwarts1.model.Student;
 import org.skypro.homeworks.hogwarts1.service.StudentService;
 import org.springframework.http.HttpStatus;
@@ -7,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("/student")
@@ -20,8 +22,8 @@ public class StudentController {
 
 
     @PostMapping
-    public Student createStudent(@RequestBody Student student) {
-        return studentService.addStudent(student);
+    public Student createStudent(@RequestBody StudentCreateDto studentCreateDto) {
+        return studentService.addStudent(studentCreateDto);
     }
 
 
@@ -38,13 +40,12 @@ public class StudentController {
 
     @PutMapping("{id}")
     public ResponseEntity<Student> editStudent(@PathVariable long id, @RequestBody Student student) {
-        Student foundStudent = studentService.editStudent(id, student);
+        Student editStudent = studentService.editStudent(id, student);
 
-        if (foundStudent == null) {
+        if (editStudent == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-
-        return ResponseEntity.ok(student);
+        return ResponseEntity.ok(editStudent);
     }
 
     @DeleteMapping("{id}")
@@ -57,5 +58,16 @@ public class StudentController {
     public Collection<Student> getAllStudent() {
         return studentService.getAllStudent();
     }
+
+    @GetMapping("/search/age/{age}")
+    public List<Student> findByAge(@PathVariable int age) {
+        return studentService.findByAge(age);
+    }
+
+    @GetMapping("/search/name/{name}")
+    public List<Student> findByName(@PathVariable String name) {
+        return studentService.findByNameContainingIgnoreCase(name);
+    }
+
 
 }

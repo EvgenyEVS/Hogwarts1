@@ -1,5 +1,6 @@
 package org.skypro.homeworks.hogwarts1.controller;
 
+import org.skypro.homeworks.hogwarts1.dto.FacultyCreateDto;
 import org.skypro.homeworks.hogwarts1.model.Faculty;
 import org.skypro.homeworks.hogwarts1.service.FacultyService;
 import org.springframework.http.HttpStatus;
@@ -7,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("/faculty")
@@ -19,8 +21,8 @@ public class FacultyController {
 
 
     @PostMapping
-    public Faculty createFaculty(@RequestBody Faculty faculty) {
-        return facultyService.addFaculty(faculty);
+    public Faculty createFaculty(@RequestBody FacultyCreateDto facultyCreateDto) {
+        return facultyService.addFaculty(facultyCreateDto);
     }
 
 
@@ -37,17 +39,16 @@ public class FacultyController {
 
     @PutMapping("{id}")
     public ResponseEntity<Faculty> editFaculty(@PathVariable long id, @RequestBody Faculty faculty) {
-        Faculty foundFaculty = facultyService.editFaculty(id, faculty);
+        Faculty updateFaculty = facultyService.editFaculty(id, faculty);
 
-        if (foundFaculty == null) {
+        if (updateFaculty == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-
-        return ResponseEntity.ok(faculty);
+        return ResponseEntity.ok(updateFaculty);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> removeFaculty (@PathVariable long id) {
+    public ResponseEntity<Void> removeFaculty(@PathVariable long id) {
         facultyService.removeFaculty(id);
         return ResponseEntity.ok().build();
     }
@@ -56,5 +57,16 @@ public class FacultyController {
     public Collection<Faculty> getAllFaculty() {
         return facultyService.getAllFaculty();
     }
+
+    @GetMapping("/search/name/{name}")
+    public List<Faculty> findByNameContainingIgnoreCase(@PathVariable String name) {
+        return facultyService.findByNameContainingIgnoreCase(name);
+    }
+
+    @GetMapping("/search/color/{color}")
+    public List<Faculty> findByColor(@PathVariable String color) {
+        return facultyService.findByNColor(color);
+    }
+
 
 }
