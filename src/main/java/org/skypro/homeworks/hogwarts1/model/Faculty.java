@@ -1,5 +1,6 @@
 package org.skypro.homeworks.hogwarts1.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,6 +24,7 @@ public class Faculty {
     private String color;
 
     @OneToMany(mappedBy = "faculty")
+    @JsonManagedReference ("faculty-students")
     private Set<Student> students = new HashSet<>();
 
     public Faculty(String name, String color) {

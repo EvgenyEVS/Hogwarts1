@@ -1,5 +1,7 @@
 package org.skypro.homeworks.hogwarts1.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,6 +23,7 @@ public class Student {
 
     @ManyToOne
     @JoinColumn(name = "faculty_id")
+    @JsonBackReference("faculty-students")
     private Faculty faculty;
 
     public Student(String name, int age) {
