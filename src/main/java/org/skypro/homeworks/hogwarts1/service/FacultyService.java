@@ -60,5 +60,10 @@ public class FacultyService {
         return facultyRepository.findByColorContainsIgnoreCase(color);
     }
 
-
+    public List<Faculty> findByNameContainingIgnoreCaseOrColorContainingIgnoreCase(String search) {
+        if (search == null || search.isBlank()) {
+            return facultyRepository.findAll();
+        }
+        return facultyRepository.findByNameContainingIgnoreCaseOrColorContainingIgnoreCase(search, search);
+    }
 }
