@@ -54,20 +54,24 @@ public class StudentController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping
-    public Collection<Student> getAllStudent() {
-        return studentService.getAllStudent();
+    @GetMapping("/search")
+    public ResponseEntity<List<Student>> findStudentByNameOrColorOrAll(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) Integer age) {
+        if (name != null && !name.isBlank()) {
+            return ResponseEntity.ok(studentService.findByNameContainingIgnoreCase(name));
+        }
+        if (age != null && age > 0) {
+            return ResponseEntity.ok(studentService.findByAge(age));
+        }
+        return ResponseEntity.ok(studentService.getAllStudent());
     }
 
-    @GetMapping("/search/age/{age}")
-    public List<Student> findByAge(@PathVariable int age) {
-        return studentService.findByAge(age);
+    @GetMapping("/search/age/between")
+    public ResponseEntity<List<Student>> findByAgeBetween(
+            @RequestParam int ageMin,
+            @RequestParam int ageMax) {
+        return ResponseEntity.ok(studentService.findByAgeBetween(ageMin, ageMax));
     }
-
-    @GetMapping("/search/name/{name}")
-    public List<Student> findByName(@PathVariable String name) {
-        return studentService.findByNameContainingIgnoreCase(name);
-    }
-
 
 }
