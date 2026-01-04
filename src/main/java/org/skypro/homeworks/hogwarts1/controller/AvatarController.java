@@ -30,7 +30,7 @@ public class AvatarController {
         this.avatarService = avatarServiceImpl;
     }
 
-    @PostMapping(value = "/{id}/avatar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> uploadAvatar(
             @PathVariable Long id, @RequestParam MultipartFile avatar) throws IOException {
         avatarService.uploadAvatar(id, avatar);
@@ -38,7 +38,7 @@ public class AvatarController {
     }
 
 
-    @GetMapping(value = "/{id}/avatar/preview")
+    @GetMapping(value = "/{id}/preview")
     public ResponseEntity<byte[]> downLoadAvatar(@PathVariable Long id) {
         Avatar avatar = avatarService.findAvatar(id);
 
@@ -53,7 +53,7 @@ public class AvatarController {
     }
 
 
-    @GetMapping(value = "/{id}/avatar")
+    @GetMapping(value = "/{id}")
     public void downLoadAvatar(@PathVariable Long id, HttpServletResponse response) throws IOException {
         Avatar avatar = avatarService.findAvatar(id);
 
