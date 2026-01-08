@@ -8,9 +8,9 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-@ToString
-//@ToString(exclude = "student")
+@ToString(exclude = {"data", "student"})
 
 public class Avatar {
 
@@ -24,18 +24,7 @@ public class Avatar {
     @Lob
     private byte[] data;
 
-    public Avatar(Long id, String filePath,
-                  Long fileSize, String mediaType,
-                  byte[] data, Student student) {
-
-        this.id = id;
-        this.filePath = filePath;
-        this.fileSize = fileSize;
-        this.mediaType = mediaType;
-        this.data = data;
-        this.student = student;
-    }
-
     @OneToOne
     Student student;
+
 }

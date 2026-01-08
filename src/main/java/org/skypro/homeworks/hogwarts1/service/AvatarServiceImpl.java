@@ -17,6 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import static io.swagger.v3.core.util.AnnotationsUtils.getExtensions;
+import static java.nio.file.StandardOpenOption.CREATE;
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
 
@@ -44,7 +45,7 @@ public class AvatarServiceImpl implements AvatarService {
         Files.deleteIfExists(filePath);
         try(
                 InputStream is = avatarFile.getInputStream();
-                OutputStream os = Files.newOutputStream(filePath, CREATE_NEW);
+                OutputStream os = Files.newOutputStream(filePath, CREATE);
                 BufferedInputStream bis = new BufferedInputStream(is, 1024);
                 BufferedOutputStream bos = new BufferedOutputStream(os, 1024);
                 ) {
