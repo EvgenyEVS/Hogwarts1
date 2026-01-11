@@ -1,12 +1,14 @@
 package org.skypro.homeworks.hogwarts1.controller;
 
 import org.skypro.homeworks.hogwarts1.dto.FacultyCreateDto;
+import org.skypro.homeworks.hogwarts1.dto.FacultyUpdateDto;
 import org.skypro.homeworks.hogwarts1.model.Faculty;
 import org.skypro.homeworks.hogwarts1.service.FacultyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class FacultyController {
 
 
     @PostMapping
-    public Faculty createFaculty(@RequestBody FacultyCreateDto facultyCreateDto) {
+    public Faculty createFaculty(@Valid @RequestBody FacultyCreateDto facultyCreateDto) {
         return facultyService.addFaculty(facultyCreateDto);
     }
 
@@ -38,8 +40,8 @@ public class FacultyController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Faculty> editFaculty(@PathVariable long id, @RequestBody Faculty faculty) {
-        Faculty updateFaculty = facultyService.editFaculty(id, faculty);
+    public ResponseEntity<Faculty> editFaculty(@PathVariable long id, @Valid @RequestBody FacultyUpdateDto facultyUpdateDto) {
+        Faculty updateFaculty = facultyService.editFaculty(id, facultyUpdateDto);
 
         if (updateFaculty == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
