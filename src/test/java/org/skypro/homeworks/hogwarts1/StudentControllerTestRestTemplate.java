@@ -40,7 +40,7 @@ public class StudentControllerTestRestTemplate {
     private TestRestTemplate restTemplate;
 
     @Autowired
-    StudentRepository studentRepository;
+    private StudentRepository studentRepository;
 
     @Test
     public void createStudentTest() throws Exception {
@@ -265,6 +265,25 @@ public class StudentControllerTestRestTemplate {
                 .anyMatch(s -> s.name().contains("Неподходящее НеИмя"));
        assertThat(hasAdded1).isTrue();
        assertThat(hasAdded2).isTrue();
+
+    }
+
+
+    @Test
+    public void whenSearchIsEmptyTest () throws Exception {
+
+        String searchUrl = "http://localhost:" + port + "/student/search";
+
+        ResponseEntity<List<StudentResponseDto>> responseSearch = restTemplate.exchange(
+                searchUrl,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<StudentResponseDto>>() {
+                }
+        );
+
+        List<StudentResponseDto> foundStudents = responseSearch.getBody();
+        assertThat(foundStudents.size()).isEqualTo(studentRepository.count());
     }
 
 
