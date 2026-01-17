@@ -1,16 +1,14 @@
 package org.skypro.homeworks.hogwarts1.service;
 
 import org.skypro.homeworks.hogwarts1.dto.StudentCreateDto;
+import org.skypro.homeworks.hogwarts1.dto.StudentUpdateDto;
 import org.skypro.homeworks.hogwarts1.model.Student;
 import org.skypro.homeworks.hogwarts1.repository.FacultyRepository;
 import org.skypro.homeworks.hogwarts1.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class StudentService {
@@ -34,11 +32,17 @@ public class StudentService {
         return studentRepository.findById(id).orElse(null);
     }
 
-    public Student editStudent(long id, Student student) {
-        if (!studentRepository.existsById(id)) {
+    public Student editStudent(long id, StudentUpdateDto studentUpdateDto) {
+
+        Optional<Student> optionalStudent = studentRepository.findById(id);
+        if (optionalStudent.isEmpty()) {
             return null;
         }
-        student.setId(id);
+
+        Student student = optionalStudent.get();
+
+        student.setName(studentUpdateDto.name());
+        student.setAge(studentUpdateDto.age());
         return studentRepository.save(student);
     }
 

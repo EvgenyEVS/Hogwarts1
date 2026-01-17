@@ -24,7 +24,7 @@ public class Faculty {
     private String color;
 
     @OneToMany(mappedBy = "faculty")
-    @JsonManagedReference ("faculty-students")
+    @JsonManagedReference("faculty-students")
     private Set<Student> students = new HashSet<>();
 
     public Faculty(String name, String color) {

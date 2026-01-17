@@ -1,16 +1,14 @@
 package org.skypro.homeworks.hogwarts1.service;
 
 import org.skypro.homeworks.hogwarts1.dto.FacultyCreateDto;
+import org.skypro.homeworks.hogwarts1.dto.FacultyUpdateDto;
 import org.skypro.homeworks.hogwarts1.model.Faculty;
 import org.skypro.homeworks.hogwarts1.model.Student;
 import org.skypro.homeworks.hogwarts1.repository.FacultyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.hibernate.criterion.Projections.id;
 
@@ -36,11 +34,19 @@ public class FacultyService {
         return facultyRepository.findById(id).orElse(null);
     }
 
-    public Faculty editFaculty(long id, Faculty faculty) {
-        if (!facultyRepository.existsById(id)) {
+    public Faculty editFaculty(long id, FacultyUpdateDto facultyUpdateDto) {
+
+        Optional<Faculty> optionalFaculty = facultyRepository.findById(id);
+
+        if (optionalFaculty.isEmpty()) {
             return null;
         }
-        faculty.setId(id);
+
+        Faculty faculty = optionalFaculty.get();
+
+        faculty.setName(facultyUpdateDto.name());
+        faculty.setColor(facultyUpdateDto.color());
+
         return facultyRepository.save(faculty);
     }
 
@@ -48,17 +54,6 @@ public class FacultyService {
         facultyRepository.deleteById(id);
     }
 
-    public List<Faculty> getAllFaculty() {
-        return facultyRepository.findAll();
-    }
-
-    public List<Faculty> findByNameContainingIgnoreCase(String name) {
-        return facultyRepository.findByNameContainingIgnoreCase(name);
-    }
-
-    public List<Faculty> findByColor(String color) {
-        return facultyRepository.findByColorContainsIgnoreCase(color);
-    }
 
     public List<Faculty> findByNameContainingIgnoreCaseOrColorContainingIgnoreCase(String search) {
         if (search == null || search.isBlank()) {

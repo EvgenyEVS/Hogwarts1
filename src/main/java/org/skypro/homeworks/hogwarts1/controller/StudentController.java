@@ -1,14 +1,20 @@
 package org.skypro.homeworks.hogwarts1.controller;
 
 import org.skypro.homeworks.hogwarts1.dto.StudentCreateDto;
+import org.skypro.homeworks.hogwarts1.dto.StudentResponseDto;
+import org.skypro.homeworks.hogwarts1.dto.StudentUpdateDto;
 import org.skypro.homeworks.hogwarts1.model.Student;
 import org.skypro.homeworks.hogwarts1.service.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/student")
@@ -22,25 +28,26 @@ public class StudentController {
 
 
     @PostMapping
-    public Student createStudent(@RequestBody StudentCreateDto studentCreateDto) {
+    public Student createStudent(@Valid @RequestBody StudentCreateDto studentCreateDto) {
         return studentService.addStudent(studentCreateDto);
     }
 
 
     @GetMapping("{id}")
-    public ResponseEntity<Student> getStudent(@PathVariable long id) {
+    public ResponseEntity<StudentResponseDto> getStudent(@PathVariable long id) {
         Student student = studentService.findStudent(id);
 
         if (student == null) {
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok(student);
+        return ResponseEntity.ok(StudentResponseDto.fromEntity(student));
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Student> editStudent(@PathVariable long id, @RequestBody Student student) {
-        Student editStudent = studentService.editStudent(id, student);
+    public ResponseEntity<Student> editStudent(@PathVariable long id, @Valid @RequestBody StudentUpdateDto studentUpdateDto) {
+
+        Student editStudent = studentService.editStudent(id, studentUpdateDto);
 
         if (editStudent == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -55,16 +62,25 @@ public class StudentController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<Student>> findStudentByNameOrColorOrAll(
+    public ResponseEntity<List<StudentResponseDto>> findStudentByNameOrColorOrAll(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) Integer age) {
+
+        List<Student> students;
+
         if (name != null && !name.isBlank()) {
-            return ResponseEntity.ok(studentService.findByNameContainingIgnoreCase(name));
+            students = studentService.findByNameContainingIgnoreCase(name);
+        } else if (age != null && age > 0) {
+            students = studentService.findByAge(age);
+        } else {
+            students = studentService.getAllStudent();
         }
-        if (age != null && age > 0) {
-            return ResponseEntity.ok(studentService.findByAge(age));
-        }
-        return ResponseEntity.ok(studentService.getAllStudent());
+
+        List<StudentResponseDto> responseDto = students.stream()
+                .map(StudentResponseDto::fromEntity)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(responseDto);
     }
 
     @GetMapping("/search/age/between")
