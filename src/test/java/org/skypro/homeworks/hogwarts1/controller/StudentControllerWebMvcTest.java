@@ -1,8 +1,7 @@
-package org.skypro.homeworks.hogwarts1;
+package org.skypro.homeworks.hogwarts1.controller;
 
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
-import org.skypro.homeworks.hogwarts1.controller.StudentController;
 import org.skypro.homeworks.hogwarts1.dto.StudentCreateDto;
 import org.skypro.homeworks.hogwarts1.dto.StudentUpdateDto;
 import org.skypro.homeworks.hogwarts1.model.Student;

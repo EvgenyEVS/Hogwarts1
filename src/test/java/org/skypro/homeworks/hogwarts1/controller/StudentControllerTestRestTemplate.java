@@ -1,8 +1,6 @@
-package org.skypro.homeworks.hogwarts1;
+package org.skypro.homeworks.hogwarts1.controller;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.skypro.homeworks.hogwarts1.controller.StudentController;
 import org.skypro.homeworks.hogwarts1.dto.StudentCreateDto;
 import org.skypro.homeworks.hogwarts1.dto.StudentResponseDto;
 import org.skypro.homeworks.hogwarts1.dto.StudentUpdateDto;
@@ -13,8 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -26,7 +22,6 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.InstanceOfAssertFactories.LONG;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

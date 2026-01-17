@@ -1,29 +1,19 @@
-package org.skypro.homeworks.hogwarts1;
+package org.skypro.homeworks.hogwarts1.controller;
 
-import netscape.javascript.JSObject;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.skypro.homeworks.hogwarts1.controller.FacultyController;
 import org.skypro.homeworks.hogwarts1.dto.FacultyCreateDto;
 import org.skypro.homeworks.hogwarts1.dto.FacultyUpdateDto;
 import org.skypro.homeworks.hogwarts1.model.Faculty;
-import org.skypro.homeworks.hogwarts1.repository.FacultyRepository;
-import org.skypro.homeworks.hogwarts1.service.AvatarServiceImpl;
 import org.skypro.homeworks.hogwarts1.service.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.mock.mockito.SpyBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
