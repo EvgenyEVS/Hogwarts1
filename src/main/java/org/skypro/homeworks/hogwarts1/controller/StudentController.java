@@ -73,7 +73,7 @@ public class StudentController {
         } else if (age != null && age > 0) {
             students = studentService.findByAge(age);
         } else {
-           students = studentService.getAllStudent();
+            students = studentService.getAllStudent();
         }
 
         List<StudentResponseDto> responseDto = students.stream()

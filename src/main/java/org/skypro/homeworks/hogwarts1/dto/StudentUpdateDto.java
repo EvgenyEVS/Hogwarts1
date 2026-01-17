@@ -12,4 +12,5 @@ public record StudentUpdateDto(
         @Size(min = 0, max = Integer.MAX_VALUE, message = "В Хогвартс не принимают " +
                 "с возрастом меньше 0 или больше Integer.MAX_VALUE")
         int age
-) { }
+) {
+}

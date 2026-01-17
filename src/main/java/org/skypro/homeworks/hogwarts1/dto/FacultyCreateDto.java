@@ -10,4 +10,5 @@ public record FacultyCreateDto(
 
         @NotBlank(message = "Color не может быть пустым")
         @Size(min = 2, max = 30, message = "Color должно быть от 2 до 30 символов")
-        String color) {}
+        String color) {
+}

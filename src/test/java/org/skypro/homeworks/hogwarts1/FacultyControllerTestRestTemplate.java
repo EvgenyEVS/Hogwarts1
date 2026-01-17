@@ -196,7 +196,7 @@ public class FacultyControllerTestRestTemplate {
 
         List<Faculty> foundFaculty = responseSearch.getBody();
 
-        for(Faculty faculty : foundFaculty){
+        for (Faculty faculty : foundFaculty) {
             assertThat(faculty.getName()).isEqualTo("ТестовыйФакультет");
             assertThat(faculty.getColor()).isEqualTo("Красно-рыжый");
             assertThat(faculty.getName()).isNotEqualTo("Недляпоиска");

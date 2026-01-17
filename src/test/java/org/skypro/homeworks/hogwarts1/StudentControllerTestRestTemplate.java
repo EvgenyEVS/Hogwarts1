@@ -222,9 +222,8 @@ public class StudentControllerTestRestTemplate {
     }
 
 
-
     @Test
-    public void findStudentByNameOrColorOrAllTestWhenIsNotNameNotAge () throws Exception {
+    public void findStudentByNameOrColorOrAllTestWhenIsNotNameNotAge() throws Exception {
 
         String createUrl = "http://localhost:" + port + "/student";
         StudentCreateDto studentCreateDto1 = new StudentCreateDto("Тестируемый поиск1", 111);
@@ -259,18 +258,18 @@ public class StudentControllerTestRestTemplate {
 
         List<StudentResponseDto> foundStudents = responseSearch.getBody();
 
-       boolean hasAdded1 = foundStudents.stream()
-               .anyMatch(s -> s.name().contains("Тестируемый поиск"));
+        boolean hasAdded1 = foundStudents.stream()
+                .anyMatch(s -> s.name().contains("Тестируемый поиск"));
         boolean hasAdded2 = foundStudents.stream()
                 .anyMatch(s -> s.name().contains("Неподходящее НеИмя"));
-       assertThat(hasAdded1).isTrue();
-       assertThat(hasAdded2).isTrue();
+        assertThat(hasAdded1).isTrue();
+        assertThat(hasAdded2).isTrue();
 
     }
 
 
     @Test
-    public void whenSearchIsEmptyTest () throws Exception {
+    public void whenSearchIsEmptyTest() throws Exception {
 
         String searchUrl = "http://localhost:" + port + "/student/search";
 

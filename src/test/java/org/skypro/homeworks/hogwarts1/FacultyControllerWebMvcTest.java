@@ -156,8 +156,8 @@ public class FacultyControllerWebMvcTest {
                 .thenReturn(facultyList);
 
         mockMvc.perform(get("/faculty/search")
-                .param("search", search)
-                .accept(MediaType.APPLICATION_JSON))
+                        .param("search", search)
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(2))
                 .andExpect(jsonPath("$.[0].name").value("ПоискИмя"))
