@@ -41,9 +41,6 @@ public class FacultyControllerWebMvcTest {
     @MockBean
     private FacultyService facultyService;
 
-    @MockBean
-    AvatarServiceImpl avatarService;
-
 
     @Test
     public void createFacultyTest() throws Exception {
@@ -82,7 +79,7 @@ public class FacultyControllerWebMvcTest {
         Faculty faculty = new Faculty(name, color);
         faculty.setId(id);
 
-        when(facultyService.findFaculty(id)).thenReturn(faculty);
+        when(facultyService.findFaculty(eq(id))).thenReturn(faculty);
 
         mockMvc.perform(get("/faculty/" + id)
                         .accept(MediaType.APPLICATION_JSON))
@@ -120,7 +117,8 @@ public class FacultyControllerWebMvcTest {
         Faculty updetedFaculty = new Faculty(name, color);
         updetedFaculty.setId(id);
 
-        when(facultyService.editFaculty(eq(id), any(FacultyUpdateDto.class))).thenReturn(updetedFaculty);
+        when(facultyService.editFaculty(eq(id), any(FacultyUpdateDto.class)))
+                .thenReturn(updetedFaculty);
 
         mockMvc.perform(put("/faculty/" + id)
                         .content(facultyObject.toString())
