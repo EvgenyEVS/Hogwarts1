@@ -5,6 +5,8 @@ import org.skypro.homeworks.hogwarts1.model.Student;
 import org.skypro.homeworks.hogwarts1.repository.AvatarRepository;
 import org.skypro.homeworks.hogwarts1.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,9 +18,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static io.swagger.v3.core.util.AnnotationsUtils.getExtensions;
 import static java.nio.file.StandardOpenOption.CREATE;
-import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
 
 @Service
@@ -89,4 +89,13 @@ public class AvatarServiceImpl implements AvatarService {
     private String getExtensions(String fileName) {
         return fileName.substring(fileName.lastIndexOf(".") + 1);
     }
+
+
+    @Override
+    public Page<Avatar> getAllAvatars(int page, int size) {
+
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return avatarRepository.findAll(pageRequest);
+    }
+
 }

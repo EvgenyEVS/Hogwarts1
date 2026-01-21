@@ -3,6 +3,7 @@ package org.skypro.homeworks.hogwarts1.service;
 import org.skypro.homeworks.hogwarts1.model.Avatar;
 import org.skypro.homeworks.hogwarts1.repository.AvatarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,4 +15,5 @@ public interface AvatarService {
 
     Avatar findAvatar(Long studentId);
 
+    Page<Avatar> getAllAvatars(int page, int size);
 }
