@@ -92,7 +92,7 @@ public class StudentController {
     }
 
 
-    @GetMapping("/qyantity")
+    @GetMapping("/quantity")
     public long getStudentQuantity() {
         return studentService.getStudentQuantity();
     }
