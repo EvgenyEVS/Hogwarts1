@@ -3,6 +3,7 @@ package org.skypro.homeworks.hogwarts1.controller;
 import org.skypro.homeworks.hogwarts1.model.Avatar;
 import org.skypro.homeworks.hogwarts1.service.AvatarService;
 import org.skypro.homeworks.hogwarts1.service.AvatarServiceImpl;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -38,8 +40,8 @@ public class AvatarController {
     }
 
 
-    @GetMapping(value = "/{id}/preview")
-    public ResponseEntity<byte[]> downLoadAvatar(@PathVariable Long id) {
+    @GetMapping(value = "/preview")
+    public ResponseEntity<byte[]> getAllAvatar(@PathVariable Long id) {
         Avatar avatar = avatarService.findAvatar(id);
 
         HttpHeaders headers = new HttpHeaders();
@@ -69,4 +71,9 @@ public class AvatarController {
     }
 
 
+    @GetMapping("/all")
+    public Page<Avatar> getAllAvatars(@RequestParam Integer page, @RequestParam Integer size) {
+
+        return avatarService.getAllAvatars(page - 1, size);
+    }
 }

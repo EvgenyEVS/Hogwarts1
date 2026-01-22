@@ -1,6 +1,7 @@
 package org.skypro.homeworks.hogwarts1.model;
 
 import lombok.*;
+import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
 

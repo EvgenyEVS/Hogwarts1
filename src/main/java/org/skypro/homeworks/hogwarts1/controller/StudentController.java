@@ -83,11 +83,32 @@ public class StudentController {
         return ResponseEntity.ok(responseDto);
     }
 
+
     @GetMapping("/search/age/between")
     public ResponseEntity<List<Student>> findByAgeBetween(
             @RequestParam int ageMin,
             @RequestParam int ageMax) {
         return ResponseEntity.ok(studentService.findByAgeBetween(ageMin, ageMax));
+    }
+
+
+    @GetMapping("/quantity")
+    public long getStudentQuantity() {
+        return studentService.getStudentQuantity();
+    }
+
+
+    @GetMapping("/age_avg")
+    public double getAvgStudentAge() {
+        return studentService.getAvgStudentAge();
+    }
+
+    @GetMapping("/last_5_StudentById")
+    public List<StudentResponseDto> getLast_5_StudentById() {
+
+        return studentService.getLast_5_StudentById().stream()
+                .map(StudentResponseDto::fromEntity)
+                .toList();
     }
 
 }
