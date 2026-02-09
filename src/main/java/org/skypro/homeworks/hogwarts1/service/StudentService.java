@@ -15,7 +15,7 @@ import java.util.*;
 @Service
 public class StudentService {
 
-    Logger logger = LoggerFactory.getLogger(StudentService.class);
+    private static final Logger logger = LoggerFactory.getLogger(StudentService.class);
     private final StudentRepository studentRepository;
 
     @Autowired
@@ -34,9 +34,11 @@ public class StudentService {
         student.setName(studentCreateDto.name());
         student.setAge(studentCreateDto.age());
 
-        logger.debug("Student created successfully with ID: {}", student.getId());
+        Student savedStudent = studentRepository.save(student);
 
-        return studentRepository.save(student);
+        logger.debug("Student created successfully with ID: {}", savedStudent.getId());
+
+        return savedStudent;
     }
 
     public Student findStudent(long id) {
@@ -51,6 +53,7 @@ public class StudentService {
 
         Optional<Student> optionalStudent = studentRepository.findById(id);
         if (optionalStudent.isEmpty()) {
+            logger.warn("Not found student with ID= {} ", id);
             return null;
         }
 
