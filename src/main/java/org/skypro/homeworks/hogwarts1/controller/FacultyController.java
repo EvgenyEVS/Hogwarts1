@@ -60,4 +60,14 @@ public class FacultyController {
         return ResponseEntity.ok(facultyService.findByNameContainingIgnoreCaseOrColorContainingIgnoreCase(search));
     }
 
+    @GetMapping("/longestNameFaculty")
+    public String longestNameFaculty() {
+        return facultyService.maxLengthFacultyName();
+    }
+
+    @GetMapping("sumParallelStream")
+    public long sumParallelStream() {
+        return facultyService.sumParallelStream();
+    }
+
 }

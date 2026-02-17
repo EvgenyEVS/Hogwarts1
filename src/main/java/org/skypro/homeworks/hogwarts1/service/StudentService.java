@@ -107,8 +107,10 @@ public class StudentService {
     public double getAvgStudentAge() {
 
         logger.info("Was invoked method for get student age");
-        return studentRepository.getAvgStudentAge().
-                orElse(0.0);
+        return studentRepository.findAll().stream()
+                .mapToInt(Student::getAge)
+                .average()
+                .orElse(0.0);
     }
 
 
@@ -121,7 +123,6 @@ public class StudentService {
 
     public List<Student> getStudentsStartsWith_A() {
         List<Student> students = studentRepository.findAll().stream()
-                .parallel()
                 .map(s -> {
                     s.setName(s.getName().toUpperCase());
                     return s;
