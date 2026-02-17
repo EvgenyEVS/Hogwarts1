@@ -1,6 +1,8 @@
 package org.skypro.homeworks.hogwarts1.service;
 
+import org.apache.el.stream.Stream;
 import org.skypro.homeworks.hogwarts1.dto.StudentCreateDto;
+import org.skypro.homeworks.hogwarts1.dto.StudentResponseDto;
 import org.skypro.homeworks.hogwarts1.dto.StudentUpdateDto;
 import org.skypro.homeworks.hogwarts1.model.Student;
 import org.skypro.homeworks.hogwarts1.repository.FacultyRepository;
@@ -114,6 +116,20 @@ public class StudentService {
 
         logger.info("Was invoked method for get last 5 student");
         return studentRepository.getLast_5_StudentById();
+    }
+
+
+    public List<Student> getStudentsStartsWith_A() {
+        List<Student> students = studentRepository.findAll().stream()
+                .parallel()
+                .map(s -> {
+                    s.setName(s.getName().toUpperCase());
+                    return s;
+                })
+                .filter(s -> s.getName().startsWith("A"))
+                .sorted(Comparator.comparing(Student::getName))
+                .toList();
+        return students;
     }
 
 }

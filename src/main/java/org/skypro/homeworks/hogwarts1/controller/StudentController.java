@@ -111,4 +111,10 @@ public class StudentController {
                 .toList();
     }
 
+    @GetMapping("/getStudentsStartsWith_A")
+    public List<StudentResponseDto> getStudentsStartsWith_A() {
+        return studentService.getStudentsStartsWith_A().stream()
+                .map(StudentResponseDto::fromEntity)
+                .toList();
+    }
 }
