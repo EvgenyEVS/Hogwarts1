@@ -121,7 +121,7 @@ public class StudentService {
     }
 
 
-    public List<Student> getStudentsStartsWith_A() {
+    public List<Student> getStudentsStartsWithA() {
         List<Student> students = studentRepository.findAll().stream()
                 .map(s -> {
                     s.setName(s.getName().toUpperCase());
