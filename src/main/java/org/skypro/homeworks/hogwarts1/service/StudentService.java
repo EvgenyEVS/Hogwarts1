@@ -1,6 +1,8 @@
 package org.skypro.homeworks.hogwarts1.service;
 
+import org.apache.el.stream.Stream;
 import org.skypro.homeworks.hogwarts1.dto.StudentCreateDto;
+import org.skypro.homeworks.hogwarts1.dto.StudentResponseDto;
 import org.skypro.homeworks.hogwarts1.dto.StudentUpdateDto;
 import org.skypro.homeworks.hogwarts1.model.Student;
 import org.skypro.homeworks.hogwarts1.repository.FacultyRepository;
@@ -105,8 +107,10 @@ public class StudentService {
     public double getAvgStudentAge() {
 
         logger.info("Was invoked method for get student age");
-        return studentRepository.getAvgStudentAge().
-                orElse(0.0);
+        return studentRepository.findAll().stream()
+                .mapToInt(Student::getAge)
+                .average()
+                .orElse(0.0);
     }
 
 
@@ -114,6 +118,19 @@ public class StudentService {
 
         logger.info("Was invoked method for get last 5 student");
         return studentRepository.getLast_5_StudentById();
+    }
+
+
+    public List<Student> getStudentsStartsWithA() {
+        List<Student> students = studentRepository.findAll().stream()
+                .map(s -> {
+                    s.setName(s.getName().toUpperCase());
+                    return s;
+                })
+                .filter(s -> s.getName().startsWith("A"))
+                .sorted(Comparator.comparing(Student::getName))
+                .toList();
+        return students;
     }
 
 }
