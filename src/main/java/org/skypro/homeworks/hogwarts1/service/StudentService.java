@@ -1,5 +1,6 @@
 package org.skypro.homeworks.hogwarts1.service;
 
+import liquibase.sdk.Main;
 import org.apache.el.stream.Stream;
 import org.skypro.homeworks.hogwarts1.dto.StudentCreateDto;
 import org.skypro.homeworks.hogwarts1.dto.StudentResponseDto;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class StudentService {
@@ -133,4 +135,63 @@ public class StudentService {
         return students;
     }
 
+    public void studentsPrintParallel() {
+        List<Student> students = studentRepository.findAll().stream()
+                .limit(6)
+                .toList();
+
+        System.out.println(students.get(0).getName() + " 0");
+        System.out.println(students.get(1).getName() + " 1");
+
+        new Thread(() -> {
+            System.out.println(students.get(2).getName() + " 2");
+            System.out.println(students.get(3).getName() + " 3");
+        }
+        ).start();
+
+        new Thread(() -> {
+            System.out.println(students.get(4).getName() + " 4");
+            System.out.println(students.get(5).getName() + " 5");
+        }
+        ).start();
+    }
+
+
+    public synchronized void studentsPrintSynchronized() {
+        List<Student> students = studentRepository.findAll().stream()
+                .limit(6)
+                .toList();
+
+        Object lock = new Object();
+        AtomicInteger count = new AtomicInteger(0);
+
+        printName(students, count, lock);
+        printName(students, count, lock);
+
+
+        new Thread(() -> {
+            printName(students, count, lock);
+            printName(students, count, lock);
+        }
+        ).start();
+
+        new Thread(() -> {
+            printName(students, count, lock);
+            printName(students, count, lock);
+        }
+        ).start();
+    }
+
+    private void printName(List<Student> students, AtomicInteger count, Object lock) {
+
+        int index;
+        synchronized (lock) {
+            index = count.getAndIncrement();
+        }
+
+        if (index < students.size()) {
+            System.out.println(students.get(index).getName() + " = " + index + " count__"
+                    + Thread.currentThread().getName());
+        }
+    }
 }
