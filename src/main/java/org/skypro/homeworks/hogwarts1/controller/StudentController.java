@@ -117,4 +117,15 @@ public class StudentController {
                 .map(StudentResponseDto::fromEntity)
                 .toList();
     }
+
+    @GetMapping("/students/print-parallel")
+    public void studentsPrintParallel() {
+        studentService.studentsPrintParallel();
+    }
+
+
+    @GetMapping("/students/print-synchronized")
+    public void studentsPrintSynchronized() {
+        studentService.studentsPrintSynchronized();
+    }
 }
