@@ -1,4 +1,5 @@
-**Hogwarts**
+**--Hogwarts--
+**
 This is a student project, codded on Java (Spring Boot).
 Contains a backend component, including a database PostgreSQL. 
 Allows adding students, departments, and avatars. 
