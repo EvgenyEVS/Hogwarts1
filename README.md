@@ -2,7 +2,7 @@
 **
 This is a student project, codded on Java (Spring Boot).
 Contains a backend component, including a database PostgreSQL. 
-Allows adding students, departments, and avatars. 
+Allows adding students, faculties, and avatars. 
 Basic CRUD queries and many additional ones (for training purposes) are implemented.
 
 How to use?
